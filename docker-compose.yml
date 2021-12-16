@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+    postgres:
+      image: postgres:latest
+      restart: always
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+      logging:
+        options:
+          max-size: 10m
+          max-file: "3"
+      ports:
+        - '15432:5432'
+      volumes:
+        - ./postgresql/transfer:/home/long
+        - ./postgresql/postgres-data:/var/lib/postgresql/data
+        # copy the sql script to create tables
+        - ./postgresql/sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+        # copy the sql script to fill tables
+        - ./postgresql/sql/fill_tables.sql:/docker-entrypoint-initdb.d/fill_tables.sql
+      container_name: postgresql_cont
+
+    flask_app:
+      image: flask_app:latest
+      build:
+        context: ./flask
+        dockerfile: Dockerfile
+      ports:
+        - "15000:5000"
+      depends_on:
+        - postgres
+      container_name: flask_app_cont
