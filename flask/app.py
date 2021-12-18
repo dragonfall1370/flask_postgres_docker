@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request
+from flask import jsonify
 from models import get_data
 import pandas as pd
 
@@ -8,7 +9,7 @@ app = Flask(__name__)
 
 
 @app.route("/api/flask", methods=['POST', 'GET'])
-def index():
+def api():
     _user_id = request.args.get('uid')
     _product_id = request.args.get('prodid')
     _store_id = request.args.get('storeid')
@@ -22,6 +23,10 @@ def index():
         final = result
     return final
 
-@app.route("/api/flask")
-def index():
-    return "Welcome to homepage"
+@app.route("/")
+def homepage():
+    return jsonify(
+        username="long",
+        email="test@gmail.com",
+        id=566
+    )

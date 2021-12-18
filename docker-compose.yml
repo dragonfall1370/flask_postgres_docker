@@ -40,7 +40,7 @@ services:
                 aliases:
                     - flask_app
     nginx:
-      image: nginx:1.13.7
+      # image: nginx:1.13.7
       container_name: nginx
       build:
         context: ./nginx
