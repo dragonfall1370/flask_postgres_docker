@@ -18,7 +18,7 @@ class get_data():
                     left join store st on s.store_id = st.store_id
                     left join product p on s.product_id = p.product_id
                     left join users u on s.user_id = u.user_id
-                    where s.user_id >= {}""".format(self.uid)
+                    where s.user_id = {}""".format(self.uid)
         df = pd.read_sql(query, engine)
         result = df.to_json(orient='records')
         return result

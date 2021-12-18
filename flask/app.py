@@ -21,3 +21,7 @@ def index():
     else:
         final = result
     return final
+
+@app.route("/api/flask")
+def index():
+    return "Welcome to homepage"

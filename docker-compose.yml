@@ -20,6 +20,10 @@ services:
         # copy the sql script to fill tables
         - ./postgresql/sql/fill_tables.sql:/docker-entrypoint-initdb.d/fill_tables.sql
       container_name: postgresql_cont
+      networks:
+            my-network:
+                aliases:
+                    - postgres
 
     flask_app:
       image: flask_app:latest
@@ -36,7 +40,7 @@ services:
                 aliases:
                     - flask_app
     nginx:
-      image: nginx:latest
+      image: nginx:1.13.7
       container_name: nginx
       build:
         context: ./nginx
