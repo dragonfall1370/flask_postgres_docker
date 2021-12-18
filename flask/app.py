@@ -3,7 +3,7 @@ from flask import request
 from flask import jsonify
 from models import get_data
 import pandas as pd
-
+import os
 
 app = Flask(__name__)
 
@@ -52,3 +52,5 @@ def data():
         email="test@gmail.com",
         id=566
     )
+if __name__=="__main__":
+    app.run(debug=True, ssl_context='adhoc')
