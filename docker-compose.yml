@@ -26,8 +26,26 @@ services:
       build:
         context: ./flask
         dockerfile: Dockerfile
-      ports:
-        - "15000:5000"
+      # ports:
+      #   - "15000:5000"
       depends_on:
         - postgres
       container_name: flask_app_cont
+      networks:
+            my-network:
+                aliases:
+                    - flask_app
+    nginx:
+      image: nginx:latest
+      container_name: nginx
+      build:
+        context: ./nginx
+        dockerfile: Dockerfile
+      networks:
+        - my-network
+      ports:
+        - 80:80
+      depends_on:
+        - flask_app
+networks:
+  my-network:
